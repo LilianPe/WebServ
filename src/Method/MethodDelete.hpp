@@ -1,14 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   MethodDelete.hpp                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/20 18:38:09 by achaisne          #+#    #+#             */
+/*   Updated: 2025/03/20 18:39:47 by achaisne         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef METHODDELETE_HPP
 #define METHODDELETE_HPP
 
 #include "IMethod.hpp"
-#include <iostream>
 
-class MethodDelete : public IMethod {
-public:
-    void handle(const Request& request, Response& response) {
-        response.setBody("DELETE method received for path: " + request.getPath());
-    }
+
+class MethodDelete : public IMethod
+{
+	private:
+
+	public:
+		MethodDelete(Request &request);
+		~MethodDelete();
+
+		void handle();
 };
 
 #endif // METHODDELETE_HPP

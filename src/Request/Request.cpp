@@ -1,12 +1,14 @@
 #include "Request.hpp"
-#include <sstream>
-#include <iostream>
 
-Request::Request(const std::string& rawRequest) {
+Request::Request(const std::string& rawRequest, int client, int serverId):
+_client(client),
+_serverId(serverId)
+{
     parse(rawRequest);
 }
 
-void Request::parse(const std::string& rawRequest) {
+void Request::parse(const std::string& rawRequest)
+{
     std::istringstream requestStream(rawRequest);
     std::string line;
 
@@ -32,7 +34,35 @@ void Request::parse(const std::string& rawRequest) {
     _body = bodyStream.str();  // Copy the entire buffer into `_body`
 }
 
-std::string Request::getMethod() const {
+std::map<std::string, std::string> Request::getCookies() const
+{
+    std::map<std::string, std::string> cookies;
+
+    std::string cookieHeader = getHeader("Cookie");
+    if (cookieHeader.empty())
+        return cookies;
+
+    std::istringstream cookieStream(cookieHeader);
+    std::string cookiePair;
+    while (std::getline(cookieStream, cookiePair, ';')) {
+        size_t equalsPos = cookiePair.find('=');
+        if (equalsPos != std::string::npos) {
+            std::string key = cookiePair.substr(0, equalsPos);
+            std::string value = cookiePair.substr(equalsPos + 1);
+            key.erase(0, key.find_first_not_of(" "));
+            cookies[key] = value;
+        }
+    }
+    return cookies;
+}
+
+int Request::getServerId() const
+{
+    return _serverId;
+}
+
+std::string Request::getMethod() const
+{
     return _method;
 }
 
@@ -47,4 +77,9 @@ std::string Request::getHeader(const std::string& key) const
 
 std::string Request::getBody() const {
     return _body;
+}
+
+int Request::getClient() const
+{
+    return _client;
 }
