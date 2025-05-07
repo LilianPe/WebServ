@@ -1,4 +1,4 @@
-##config file:  
+# config file:  
 
 "host"	Defines the IP address or hostname where the server will listen.  
 "port"	Port number where the server will run.  
