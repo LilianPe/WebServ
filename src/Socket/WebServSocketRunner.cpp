@@ -1,4 +1,5 @@
 #include "WebServSocketRunner.hpp"
+#include "color.hpp"
 
 WebServSocketRunner* WebServSocketRunner::instance = NULL;
 
@@ -69,7 +70,6 @@ void WebServSocketRunner::handleIncomingConnection(WebservSocket &buffer)
     int newClient = accept(buffer.getServerFd(), NULL, NULL);
     if (newClient < 0)
         throw std::runtime_error("handleIncomingConnection() error");
-    std::cout << "New client connected!" << std::endl;
     std::string requestData = readSocketData(newClient);
     if (!requestData.empty())
     {
@@ -86,6 +86,13 @@ void WebServSocketRunner::handleIncomingConnection(WebservSocket &buffer)
             methodHandler->handle();
             delete methodHandler;
         }
+
+        std::cout << BLUE << "[Client] "
+          << YELLOW << request.getMethod()
+          << RESET << " "
+          << request.getPath()
+          << std::endl;
+          
     }
     close(newClient);
 }

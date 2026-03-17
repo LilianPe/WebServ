@@ -3,6 +3,7 @@
 #include "../Method/MethodDelete.hpp"
 #include "../Method/MethodGet.hpp"
 #include "../Method/MethodPost.hpp"
+#include "color.hpp"
 
 WebservSocket::WebservSocket(): _serverFd(-1) {}
 
@@ -38,8 +39,9 @@ void WebservSocket::setupSocket()
     _socket.bindSocket(_address);
     _socket.listenSocket(10);
     _serverFd = _socket.getFd();
-    std::cout << "Server listening on port " << Data::getInstance()->getHttp().getServers()[_id].getListen() << std::endl;
+
+    std::cout << GREEN << "[Server] "
+          << RESET << "Started on port "
+          << CYAN << Data::getInstance()->getHttp().getServers()[_id].getListen()
+          << RESET << std::endl;
 }
-
-
-

@@ -55,7 +55,7 @@ std::string MethodGet::generateDirectoryListing(const std::string& path)
 void MethodGet::handle()
 {
 	std::string path = getFinalPath();
-	std::cout << "Final1 :" << path << std::endl;
+	// std::cout << "Final1 :" << path << std::endl;
 	if (!isMethodAllowed("GET"))
 		handleMethodNotAllowed();
 	else

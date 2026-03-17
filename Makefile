@@ -39,6 +39,7 @@ INC_FILES = src/Socket/WebservSocket \
 		src/Config/Data/Server \
 		src/Config/Data/Http \
 		src/CGI/Cgi \
+		src/color \
 
 INC	= $(addsuffix .hpp, $(INC_FILES))
 SRC	= $(addsuffix .cpp, $(SRC_FILES))
@@ -50,7 +51,7 @@ $(NAME): $(OBJ)
 	c++ $^ -o $@
 
 %.o: %.cpp $(INC)
-	c++ -std=c++98 -g3 -Wall -Werror -Wextra -c $< -o $@
+	c++ -std=c++98 -g3 -Wall -Werror -Wextra -I src -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

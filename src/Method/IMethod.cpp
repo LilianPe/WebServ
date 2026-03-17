@@ -120,7 +120,7 @@ std::string IMethod::getPageError(int error)
         std::string path = it->second.getRelativePath();
         std::ifstream file(path.c_str());
         buffer << file.rdbuf();
-        std::cout << "File Path: " << path << std::endl;
+        // std::cout << "File Path: " << path << std::endl;
     }
     else
     {
